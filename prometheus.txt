@@ -1,0 +1,5 @@
+prometheus --config.file="prometheus.yml"
+
+D:\devpath\projects\talkative\tkt-ui\src\main\tktui-frontend>npm start
+
+D:\devpath\apache-artemis-2.17.0\bin\mybroker\bin>artemis run
