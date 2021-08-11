@@ -1,0 +1,55 @@
+server:
+  port: 9009
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka 
+      
+spring:
+  application:
+    name: tkt-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+      routes:
+      - id: tkt-sender
+        uri: lb://TKT-SENDER
+        predicates:
+        - Path=/tkt-sender/**
+      - id: tkt-ui
+        uri: lb://TKT-UI
+        predicates:
+        - Path=/tkt-ui/**
+      - id: tkt-index
+        uri: lb://TKT-INDEX
+        predicates:
+        - Path=/tkt-index/**
+      - id: tkt-listener
+        uri: lb:ws://TKT-LISTENER
+        predicates:
+        - Path=/tkt-listener/app/**
+  
+management:
+  endpoint:
+    metrics:
+     enabled: true
+    prometheus:
+     enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}

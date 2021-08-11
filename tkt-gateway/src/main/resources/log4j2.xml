@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+<Properties>
+    <Property name="springAppName">tkt-gateway</Property>
+</Properties>
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+             <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        </Console>
+        <File name="LogToFile" fileName="D:/${springAppName}.log">
+                <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="ae.gov.dubaicustoms.tktgateway" level="debug" additivity="false">
+            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="org.springframework.boot" level="error" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="org.springframework.cloud" level="debug" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>

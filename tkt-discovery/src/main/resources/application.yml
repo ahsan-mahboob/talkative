@@ -1,0 +1,33 @@
+spring:
+ application:
+    name: tkt-eureka-discovery
+
+server:
+  port: 9000
+  
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://localhost:9000/eureka
+
+logging:
+  config: classpath:log4j2.xml
+
+management:
+  endpoint:
+    metrics:
+     enabled: true
+    prometheus:
+     enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}      
